@@ -27,7 +27,7 @@ jobs:
           import subprocess
 
           # Règles pour Conventional Commits
-          PATTERN = re.compile(r'^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .{1,50}$')
+          PATTERN = re.compile(r'^(feat|fix|docs|style|refactor|test|chore|ci|perf)(\(.+\))?: .{1,80}$')
 
           def validate_commit_message(message):
               return bool(PATTERN.match(message))
