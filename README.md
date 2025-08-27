@@ -14,7 +14,9 @@ Etude de bloc 4 - Dashboard conseiller Néobanque
 ## Licence
 Ce projet est sous licence [MIT](LICENSE). Vous êtes libre de l'utiliser, le modifier et le redistribuer, à condition de citer l'auteur original.
 
-## Installation
+## Installation & lancements
+
+### Globale
 
 ```bash
 # Mise à jour pip
@@ -27,13 +29,32 @@ pip install black flake8 isort pre-commit commitizen
 pre-commit install
 ```
 
+### API
+
+```bash
+# Dossier API
+cd api
+
+# Installation des dépendances et outils
+pip install -r requirements.txt
+
+# Lancement du serveur pour l'API
+uvicorn main:app --reload
+```
+
+L'API sera à retrouver sur http://localhost:8000/
+
 ## Présentation des outils utilisés
 Ce projet est construit avec Python 3.12.
+
+API :
+- FastAPI : Framework permettant de créer une API
+- Uvicorn : Serveur web ASGI pour déployer notre API
 
 Autre outils :
 - Black : Formatteur de code (standardise l’indentation, les espaces, etc.).
 - Flake8 : Linter (détecte les erreurs de style et les problèmes de syntaxe).
-- isort : Trie les imports de manière cohérente.
-- pre-commit : Exécute automatiquement les vérifications avant chaque commit.
-- commitizen : Standardise les messages de commit ([Conventional Commits](https://www.conventionalcommits.org/fr/v1.0.0/))
+- Isort : Trie les imports de manière cohérente.
+- Pre-commit : Exécute automatiquement les vérifications avant chaque commit.
+- Commitizen : Standardise les messages de commit ([Conventional Commits](https://www.conventionalcommits.org/fr/v1.0.0/))
 
