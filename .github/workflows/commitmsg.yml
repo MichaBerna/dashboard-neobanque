@@ -1,0 +1,62 @@
+name: Check Conventional Commits
+
+on: [push, pull_request]
+
+jobs:
+  commitmsg:
+    name: Validation messages commits
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pygithub
+
+      - name: Validate commit messages
+        run: |
+          python - <<EOF
+          import re
+          import sys
+          import subprocess
+
+          # Règles pour Conventional Commits
+          PATTERN = re.compile(r'^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .{1,50}$')
+
+          def validate_commit_message(message):
+              return bool(PATTERN.match(message))
+
+          # Récupérer les messages des derniers commits
+          if "${{ github.event_name }}" == "pull_request":
+              # Pour les PR, on récupère les commits entre la base et la tête
+              commits = subprocess.check_output(
+                  ["git", "rev-list", "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"]
+              ).decode().splitlines()
+          else:
+              # Pour les pushes, on récupère les derniers commits
+              commits = subprocess.check_output(
+                  ["git", "rev-list", "-n", "5", "HEAD"]  # Vérifie les 5 derniers commits
+              ).decode().splitlines()
+
+          errors = []
+          for commit_hash in commits:
+              message = subprocess.check_output(
+                  ["git", "show", "-s", "--format=%s", commit_hash]
+              ).decode().strip()
+              if not validate_commit_message(message):
+                  errors.append(f"Commit {commit_hash[:7]}: '{message}'")
+
+          if errors:
+              print("❌ Les messages de commit suivants ne respectent pas Conventional Commits :")
+              for error in errors:
+                  print(f"  - {error}")
+              sys.exit(1)
+          else:
+              print("✅ Tous les messages de commit respectent Conventional Commits.")
+          EOF

@@ -15,3 +15,12 @@ repos:
     hooks:
       - id: isort
         args: ["--profile", "black"]
+
+  - repo: local
+    hooks:
+      - id: commitmsg
+        name: Validation messages commits
+        entry: python scripts/validate_commit_msg.py
+        language: system
+        stages: [commit-msg]
+        args: [$1]
