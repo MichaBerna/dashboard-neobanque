@@ -6,3 +6,25 @@ Etude de bloc 4 - Dashboard conseiller Néobanque
 ## Licence
 Ce projet est sous licence [MIT](LICENSE). Vous êtes libre de l'utiliser, le modifier et le redistribuer, à condition de citer l'auteur original.
 
+## Installation
+
+```bash
+# Mise à jour pip
+python -m pip install --upgrade pip
+
+# Installation des dépendances et outils
+pip install black flake8 isort pre-commit
+
+# Activation pre-commit
+pre-commit install
+```
+
+## Présentation des outils utilisés
+Ce projet est construit avec Python 3.12.
+
+Autre outils :
+- Black : Formatteur de code (standardise l’indentation, les espaces, etc.).
+- Flake8 : Linter (détecte les erreurs de style et les problèmes de syntaxe).
+- isort : Trie les imports de manière cohérente.
+- pre-commit : Outil pour exécuter automatiquement ces vérifications avant chaque commit.
+
