@@ -29,6 +29,21 @@ pip install black flake8 isort pre-commit commitizen
 pre-commit install
 ```
 
+### Dashboard
+
+```bash
+# Dossier dashboard
+cd dashboard
+
+# Installation des dépendances et outils
+pip install -r requirements.txt
+
+# Lancement du serveur pour l'API
+streamlit run main.py
+```
+
+Le dashboard sera à retrouver sur http://localhost:8501/
+
 ### API
 
 ```bash
@@ -47,11 +62,20 @@ L'API sera à retrouver sur http://localhost:8000/
 ## Présentation des outils utilisés
 Ce projet est construit avec Python 3.12.
 
-API :
+### API
 - FastAPI : Framework permettant de créer une API
 - Uvicorn : Serveur web ASGI pour déployer notre API
 
-Autre outils :
+L'API est déployée sur [Render](https://render.com/).
+
+### Dashboard
+- Streamlit : Framework permettant de créer un dashboard interactif sur une application web
+- Requests : Pour créer rapidement des requêtes HTTP
+
+Le Dashboard est déployé sur [Streamlit](https://streamlit.io/).
+
+### Autres outils
+
 - Black : Formatteur de code (standardise l’indentation, les espaces, etc.).
 - Flake8 : Linter (détecte les erreurs de style et les problèmes de syntaxe).
 - Isort : Trie les imports de manière cohérente.
