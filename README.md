@@ -18,16 +18,30 @@ Ce projet est sous licence [MIT](LICENSE). Vous êtes libre de l'utiliser, le mo
 
 ### Globale
 
+Dans le dossier racine :
+
 ```bash
 # Mise à jour pip
 python -m pip install --upgrade pip
 
 # Installation des dépendances et outils
-pip install black flake8 isort pre-commit commitizen
+pip install -r requirements.txt
 
 # Activation pre-commit
 pre-commit install
 ```
+
+Quelques commandes utiles :
+
+```bash
+# Formattage
+ruff format .
+
+# Linter
+ruff check --fix .
+```
+
+Ces deux commandes sont systématiquement jouées par le commit hook et par le workflow GitHub Actions.
 
 ### Dashboard
 
@@ -108,9 +122,7 @@ L'API est déployée sur [Render](https://render.com/).
 
 ### Autres outils
 
-- Black : Formatteur de code (standardise l’indentation, les espaces, etc.).
-- Flake8 : Linter (détecte les erreurs de style et les problèmes de syntaxe).
-- Isort : Trie les imports de manière cohérente.
+- Ruff : Linter & formatteur de code
 - Pre-commit : Exécute automatiquement les vérifications avant chaque commit.
 - Commitizen : Standardise les messages de commit ([Conventional Commits](https://www.conventionalcommits.org/fr/v1.0.0/))
 

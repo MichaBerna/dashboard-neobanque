@@ -4,3 +4,32 @@ tag_format = "$version"
 version_scheme = "semver"
 version = "0.0.1"
 major_version_zero = true
+
+[tool.ruff]
+# Longueur de ligne
+line-length = 100
+# Exclure certains fichiers/dossiers
+exclude = [
+    ".venv",
+    ".git",
+    "__pycache__",
+]
+
+[tool.ruff.lint]
+# Règles de linting
+select = [
+    "E",   # Pycodestyle
+    "F",   # Pyflakes
+    "W",   # Avertissements
+    "I",   # Isort
+    "B",   # Flake8-bugbear
+    "SIM", # Flake8-simplify
+    "UP",  # Mises à jour Python (ex. `typing.List` → `list`)
+    "C90", # Complexité McCabe
+]
+
+[tool.ruff.format]
+# Règles de formatage
+indent-style = "space"
+quote-style = "double"
+docstring-code-format = true

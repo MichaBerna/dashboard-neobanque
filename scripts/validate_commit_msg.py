@@ -3,21 +3,17 @@ import re
 import sys
 
 # Règles pour Conventional Commits
-PATTERN = re.compile(
-    r"^(feat|fix|docs|style|refactor|test|chore|ci|perf)(\(.+\))?: .{1,80}$"
-)
+PATTERN = re.compile(r"^(feat|fix|docs|style|refactor|test|chore|ci|perf)(\(.+\))?: .{1,80}$")
 
 
 def validate_commit_msg(commit_msg_file):
-    with open(commit_msg_file, "r") as f:
+    with open(commit_msg_file) as f:
         commit_msg = f.read().strip()
 
     if not PATTERN.match(commit_msg):
         print("ERREUR : Le message de commit ne respecte pas Conventional Commits.")
         print("Format attendu : <type>(<scope>): <description>")
-        print(
-            "Types autorisés : feat, fix, docs, style, refactor, test, chore, ci, perf"
-        )
+        print("Types autorisés : feat, fix, docs, style, refactor, test, chore, ci, perf")
         print(f"Message reçu : {commit_msg}")
         sys.exit(1)
 
