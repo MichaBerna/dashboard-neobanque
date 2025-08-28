@@ -59,20 +59,52 @@ uvicorn main:app --reload
 
 L'API sera à retrouver sur http://localhost:8000/
 
+### Modèle IA
+
+Le modèle IA est enregitré dans le dossier **modele**, dans le fichier **modele_prediction_credit.joblib**.
+Si vous souhaitez rejouer l'entraînement du modèle et sa sauvegarde :
+
+```bash
+# Dossier modèle IA
+cd modele/entrainement
+
+# Installation des dépendances et outils
+pip install -r requirements.txt
+```
+
+Il suffira ensuite de jouer le notebook **neobanque-credit.ipynb**.
+
+**Notes** :
+- Les données sont compressées par facilité, GitHub limitant les fichiers uploadés à 100Mo. La décompression est faite dans le notebook.
+- Le modèle se base en partie sur le travail effectué sur [Kaggle - Applied Predictive Modelling (Brief Overview)](https://www.kaggle.com/code/moizzz/applied-predictive-modelling-brief-overview/report).
+
 ## Présentation des outils utilisés
 Ce projet est construit avec Python 3.12.
 
+### Dashboard
+
+- Streamlit : Framework permettant de créer un dashboard interactif sur une application web
+- Requests : Pour créer rapidement des requêtes HTTP
+
+Le Dashboard est déployé sur [Streamlit](https://streamlit.io/).
+
 ### API
+
 - FastAPI : Framework permettant de créer une API
 - Uvicorn : Serveur web ASGI pour déployer notre API
 
 L'API est déployée sur [Render](https://render.com/).
 
-### Dashboard
-- Streamlit : Framework permettant de créer un dashboard interactif sur une application web
-- Requests : Pour créer rapidement des requêtes HTTP
+### Modèle IA (entraînement)
 
-Le Dashboard est déployé sur [Streamlit](https://streamlit.io/).
+- Pandas : Manipulation et analyse de données 
+- Numpy : Calculs, opérations sur tableaux et matrices
+- Scikit-learn : Machine learning et entraînement de modèles
+- Matplotlib : Visualisation graphique 
+- Seaborn : Visualisation graphique avancée
+- Xgboost : Modèles de boosting extrême
+- Imblearn : Traitement des données, SMOTE pour le rééquilibrage des classes
+- Joblib : Sauvegarde/chargement de modèles 
 
 ### Autres outils
 
