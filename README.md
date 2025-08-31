@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Formatter: Black](https://img.shields.io/badge/Formatter-Black-000000.svg)](https://github.com/psf/black)
 [![Linter: Flake8](https://img.shields.io/badge/Linter-Flake8-222222?logo=flake8)](https://flake8.pycqa.org/)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 ## Introduction
 Solution pour Néobanque, permettant d'avoir les éléments financiers des clients mais aussi un score d’éligibilité au prêt. Contient un dashboard et une API permettant d'exploiter un modèle IA.  
@@ -13,6 +13,12 @@ Etude de bloc 4 - Dashboard conseiller Néobanque
 
 ## Licence
 Ce projet est sous licence [MIT](LICENSE). Vous êtes libre de l'utiliser, le modifier et le redistribuer, à condition de citer l'auteur original.
+
+## Structure du projet
+- `api/` : Backend FastAPI traitant les demandes de prédictions.
+- `scripts/` : Scripts utilitaires.
+- `modele/` : Notebook et modèle entraîné.
+- `dashboard/` : Frontend Dashboard Streamlit.
 
 ## Installation & lancements
 
