@@ -5,7 +5,12 @@
 [![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Formatter: Black](https://img.shields.io/badge/Formatter-Black-000000.svg)](https://github.com/psf/black)
 [![Linter: Flake8](https://img.shields.io/badge/Linter-Flake8-222222?logo=flake8)](https://flake8.pycqa.org/)
-[![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)  
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MichaBerna_dashboard-neobanque&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=MichaBerna_dashboard-neobanque)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=MichaBerna_dashboard-neobanque&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=MichaBerna_dashboard-neobanque)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=MichaBerna_dashboard-neobanque&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=MichaBerna_dashboard-neobanque)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MichaBerna_dashboard-neobanque&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=MichaBerna_dashboard-neobanque)
 
 ## Introduction
 Solution pour Néobanque, permettant d'avoir les éléments financiers des clients mais aussi un score d’éligibilité au prêt. Contient un dashboard et une API permettant d'exploiter un modèle IA.  
