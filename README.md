@@ -2,7 +2,7 @@
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Formatter: Black](https://img.shields.io/badge/Formatter-Black-000000.svg)](https://github.com/psf/black)
 [![Linter: Flake8](https://img.shields.io/badge/Linter-Flake8-222222?logo=flake8)](https://flake8.pycqa.org/)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
@@ -93,7 +93,7 @@ Il suffira ensuite de jouer le notebook **neobanque-credit.ipynb**.
 - Le modèle se base en partie sur le travail effectué sur [Kaggle - Applied Predictive Modelling (Brief Overview)](https://www.kaggle.com/code/moizzz/applied-predictive-modelling-brief-overview/report).
 
 ## Présentation des outils utilisés
-Ce projet est construit avec Python 3.12.
+Ce projet est construit avec Python 3.13.
 
 ### Dashboard
 
