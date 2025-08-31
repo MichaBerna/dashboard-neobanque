@@ -106,6 +106,9 @@ Le Dashboard est déployé sur [Streamlit](https://streamlit.io/).
 
 - FastAPI : Framework permettant de créer une API
 - Uvicorn : Serveur web ASGI pour déployer notre API
+- Joblib : Sauvegarde/chargement de modèles 
+- Pandas : Manipulation et analyse de données 
+- Pydantic : Validation et typage (POO)
 
 L'API est déployée sur [Render](https://render.com/).
 
