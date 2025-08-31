@@ -16,6 +16,16 @@ jobs:
         with:
           python-version: '3.13'
 
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r api/requirements.txt
+          pip install -r dashboard/requirements.txt
+          pip install -r modele/entrainement/requirements.txt
+
+      - name: Run tests with coverage
+        run: pytest --cov-report=xml
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@master
         env:

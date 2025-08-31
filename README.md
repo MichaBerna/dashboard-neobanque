@@ -11,6 +11,7 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=MichaBerna_dashboard-neobanque&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=MichaBerna_dashboard-neobanque)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=MichaBerna_dashboard-neobanque&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=MichaBerna_dashboard-neobanque)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MichaBerna_dashboard-neobanque&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=MichaBerna_dashboard-neobanque)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MichaBerna_dashboard-neobanque&metric=coverage)](https://sonarcloud.io/summary/new_code?id=MichaBerna_dashboard-neobanque)
 
 ## Introduction
 Solution pour Néobanque, permettant d'avoir les éléments financiers des clients mais aussi un score d’éligibilité au prêt. Contient un dashboard et une API permettant d'exploiter un modèle IA.  
@@ -134,9 +135,11 @@ L'API est déployée sur [Render](https://render.com/).
 - Imblearn : Traitement des données, SMOTE pour le rééquilibrage des classes
 - Joblib : Sauvegarde/chargement de modèles 
 
-### Autres outils
+### Tests & qualité de code
 
 - Ruff : Linter & formatteur de code
 - Pre-commit : Exécute automatiquement les vérifications avant chaque commit.
 - Commitizen : Standardise les messages de commit ([Conventional Commits](https://www.conventionalcommits.org/fr/v1.0.0/))
-
+- Pytest : Framework de test Python
+- Pytest-cov : Production de rapports de couverture de code
+- Httpx : Nécessaire pour tests d'endpoints (API)

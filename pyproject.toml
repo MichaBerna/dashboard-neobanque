@@ -33,3 +33,15 @@ select = [
 indent-style = "space"
 quote-style = "double"
 docstring-code-format = true
+
+[tool.pytest.ini_options]
+testpaths = ["api/tests", "dashboard/tests"]
+python_files = "test_*.py"
+addopts = "--cov=api --cov=dashboard --cov-report=term-missing --import-mode=importlib"
+
+[tool.coverage.run]
+omit = [
+    "**/tests/*",
+    "**/__init__.py",
+    "**/*.ipynb"
+]

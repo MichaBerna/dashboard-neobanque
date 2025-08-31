@@ -1,3 +1,6 @@
 ruff
 pre-commit
 commitizen
+pytest
+pytest-cov
+httpx
