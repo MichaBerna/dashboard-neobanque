@@ -113,6 +113,7 @@ Ce projet est construit avec Python 3.13.
 ### Dashboard
 
 - Streamlit : Framework permettant de créer un dashboard interactif sur une application web
+- Streamlit-authenticator : Module Streamlit d'authentification
 - Requests : Pour créer rapidement des requêtes HTTP
 
 Le Dashboard est déployé sur [Streamlit](https://streamlit.io/).

@@ -1,0 +1,14 @@
+credentials:
+  usernames:
+    michaberna:
+      email: michael.bernasinski@gmail.com
+      name: Micha Berna
+      password: $2b$12$11wa6GaTW.KPb9Ie1o2n3eoJExBewLNXKcduy2vf9IkugYXR.70uy
+    correcteur:
+      email: correcteur@visiplus.com
+      name: Correcteur Visiplus
+      password: $2b$12$zuU5pXXxczlQMtWmi99RYuuyURRDL0y6zo.RmCPz2PYAmxqfLAXq2
+cookie:
+  expiry_days: 15
+  key: $2b$12$QD3iBcnonoshGFuuPIttJ.JmPWAhk2MjE/6a88j.EcWs1gnpBmICi
+  name: dashboard_neobanque_auth_cookie

@@ -1,0 +1,7 @@
+{
+  "title": "Dashboard Neobanque",
+  "subtitle": "Ce dashboard appelle l'API Neobanque déployée sur Render",
+  "welcome_message": "Bienvenue, {name} !",
+  "login_prompt": "Veuillez vous connecter",
+  "incorrect_credentials": "Identifiants incorrects"
+}
