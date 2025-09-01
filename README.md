@@ -84,6 +84,9 @@ uvicorn main:app --reload
 ```
 
 L'API sera à retrouver sur http://localhost:8000/
+De la documentation est également disponible :
+- OpenAPI/Swagger : http://localhost:8000/docs
+- ReDoc : http://localhost:8000/redoc
 
 ### Modèle IA
 
