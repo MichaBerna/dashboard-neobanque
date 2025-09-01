@@ -3,5 +3,10 @@
   "subtitle": "This dashboard calls the Neobanque API deployed on Render",
   "welcome_message": "Welcome, {name} !",
   "login_prompt": "Please log in",
-  "incorrect_credentials": "Incorrect credentials"
+  "incorrect_credentials": "Incorrect credentials",
+  "gender_label": "Gender",
+  "gender_help": "M = Male, F = Female",
+  "submit_button": "Predict",
+  "prediction_success": "Prediction: {prediction} (Probability: {probability})",
+  "prediction_error": "Error during prediction. Please try again."
 }

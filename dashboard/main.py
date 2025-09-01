@@ -1,10 +1,8 @@
 import streamlit as st
 import yaml
+from forms import render_prediction_form
 from streamlit_authenticator import Authenticate
 from utils.translations import load_translations
-
-# URL de l'API déployée sur Render
-API_URL = "https://api-neobanque.onrender.com/"
 
 # Charger la configuration d'authentification
 with open("auth/config_auth.yaml") as f:
@@ -23,7 +21,7 @@ lang = st.sidebar.selectbox("Language", ["Français", "English"])
 lang_code = "en" if lang == "English" else "fr"
 translations = load_translations(lang_code)
 
-# Afficher le formulaire de login
+# Formulaire de login
 authenticator.login()
 
 if st.session_state.get("authentication_status"):
@@ -31,6 +29,9 @@ if st.session_state.get("authentication_status"):
     st.title(translations["title"])
     st.write(translations["subtitle"])
     st.write(translations["welcome_message"].format(name=st.session_state.get("name")))
+
+    # Formulaire de prédiction
+    render_prediction_form(translations)
 
 elif st.session_state.get("authentication_status") is False:
     st.error(translations["incorrect_credentials"])
