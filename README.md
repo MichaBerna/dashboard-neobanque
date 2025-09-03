@@ -139,7 +139,7 @@ L'API est déployée sur [Render](https://render.com/).
 - Imblearn : Traitement des données, SMOTE pour le rééquilibrage des classes
 - Joblib : Sauvegarde/chargement de modèles 
 
-### Tests & qualité de code
+### Outillage, tests & qualité de code
 
 - Ruff : Linter & formatteur de code
 - Pre-commit : Exécute automatiquement les vérifications avant chaque commit.
@@ -147,3 +147,4 @@ L'API est déployée sur [Render](https://render.com/).
 - Pytest : Framework de test Python
 - Pytest-cov : Production de rapports de couverture de code
 - Httpx : Nécessaire pour tests d'endpoints (API)
+- Python-dotenv : Variables d'environnement

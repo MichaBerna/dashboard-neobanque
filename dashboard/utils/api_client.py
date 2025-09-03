@@ -1,7 +1,11 @@
+import os
+
 import requests
 import streamlit as st
+from dotenv import load_dotenv
 
-API_URL = "https://api-neobanque.onrender.com/"
+load_dotenv()
+API_URL = os.getenv("API_URL")
 
 
 def call_predict_api(data):
