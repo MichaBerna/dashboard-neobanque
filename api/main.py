@@ -1,5 +1,6 @@
 import pandas as pd
-from fastapi import FastAPI
+from api_key_auth import get_api_key
+from fastapi import Depends, FastAPI
 from model.client_data import ClientData
 from model.model_loader import load_model
 from model.prediction_response import PredictionResponse
@@ -9,7 +10,7 @@ model, seuil, preprocessor = load_model()
 
 
 @app.post("/predict", response_model=PredictionResponse)
-async def predict(client_data: ClientData):
+async def predict(client_data: ClientData, api_key: str = Depends(get_api_key)):
     input_data = pd.DataFrame([client_data.model_dump()])
     input_data_processed = preprocessor.transform(input_data)
 
