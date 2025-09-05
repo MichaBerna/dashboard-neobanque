@@ -125,6 +125,7 @@ Le Dashboard est déployé sur [Streamlit](https://streamlit.io/).
 - Joblib : Sauvegarde/chargement de modèles 
 - Pandas : Manipulation et analyse de données 
 - Pydantic : Validation et typage (POO)
+- Sqlalchemy : Toolkit base de donnée/ORM
 
 L'API est déployée sur [Render](https://render.com/).
 

@@ -1,7 +1,9 @@
 from pydantic import BaseModel
 
+from api.database.models import Client
 
-class ClientData(BaseModel):
+
+class ClientModel(BaseModel):
     CODE_GENDER: str
     NAME_INCOME_TYPE: str
     NAME_EDUCATION_TYPE: str
@@ -28,3 +30,19 @@ class ClientData(BaseModel):
     EMERGENCYSTATE_MODE: str
     DAYS_LAST_PHONE_CHANGE: float
     FLAG_DOCUMENT_3: int
+
+
+def client_to_client_model(client: Client) -> ClientModel:
+    # Récupère les attributs de l'instance SQLAlchemy
+    client_data = {}
+    for column in client.__table__.columns:
+        value = getattr(client, column.name)
+        # Convertit les valeurs en types natifs (str, float, int)
+        if isinstance(value, str):
+            client_data[column.name] = value
+        elif isinstance(value, (int, float)):
+            client_data[column.name] = float(value) if isinstance(value, float) else int(value)
+        else:
+            client_data[column.name] = value
+
+    return ClientModel(**client_data)
