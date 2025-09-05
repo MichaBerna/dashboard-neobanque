@@ -9,7 +9,6 @@ from database.client_repository import (
     update_client,
 )
 from database.database_init import db_session, init_db
-from dto.client_create import ClientCreate, ClientResponse
 from dto.prediction_response import PredictionResponse
 from fastapi import Depends, FastAPI, HTTPException
 from model.client_model import client_to_client_model
@@ -17,6 +16,7 @@ from model.model_loader import load_model
 from sqlalchemy.orm import Session
 
 from api.database.models import Client
+from api.dto.client_dto import ClientCreate, ClientResponse
 
 # Initialisation BDD/Session
 init_db()
