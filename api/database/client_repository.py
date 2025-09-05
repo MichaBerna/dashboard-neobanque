@@ -1,36 +1,37 @@
+from typing import Optional
+
 from sqlalchemy.orm import Session
 
 from api.database.models import Client
-from api.dto.client_create import ClientCreate
 
 
-def get_client(db: Session, client_id: int):
+def get_client(db: Session, client_id: int) -> Optional[Client]:
     return db.query(Client).filter(Client.id == client_id).first()
 
 
-def get_clients(db: Session, skip: int = 0, limit: int = 100):
+def get_clients(db: Session, skip: int = 0, limit: int = 100) -> list[Client]:
     return db.query(Client).offset(skip).limit(limit).all()
 
 
-def create_client(db: Session, client: ClientCreate):
-    db_client = Client(**client.dict())
+def create_client(db: Session, client_data: dict) -> Client:
+    db_client = Client(**client_data)
     db.add(db_client)
     db.commit()
     db.refresh(db_client)
     return db_client
 
 
-def update_client(db: Session, client_id: int, client: ClientCreate):
+def update_client(db: Session, client_id: int, client_data: dict) -> Optional[Client]:
     db_client = get_client(db, client_id)
     if db_client:
-        for key, value in client.dict().items():
+        for key, value in client_data.items():
             setattr(db_client, key, value)
         db.commit()
         db.refresh(db_client)
     return db_client
 
 
-def delete_client(db: Session, client_id: int):
+def delete_client(db: Session, client_id: int) -> Optional[Client]:
     db_client = get_client(db, client_id)
     if db_client:
         db.delete(db_client)

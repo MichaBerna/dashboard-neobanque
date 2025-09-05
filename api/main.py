@@ -39,7 +39,7 @@ model, seuil, preprocessor = load_model()
 
 @app.post("/clients/", response_model=ClientResponse)
 def create_new_client(db: DbSession, client: ClientCreate, api_key: str = Depends(get_api_key)):
-    return create_client(db, client)
+    return create_client(db, client.model_dump())
 
 
 @app.get("/clients/", response_model=list[ClientResponse])
@@ -60,7 +60,7 @@ def read_client(db: DbSession, client_id: int, api_key: str = Depends(get_api_ke
 def update_existing_client(
     db: DbSession, client_id: int, client: ClientCreate, api_key: str = Depends(get_api_key)
 ):
-    db_client = update_client(db, client_id, client)
+    db_client = update_client(db, client_id, client.model_dump())
     check_client_trouve(db_client)
     return db_client
 
