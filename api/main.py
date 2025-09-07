@@ -39,7 +39,8 @@ model, seuil, preprocessor = load_model()
 
 @app.post("/clients/", response_model=ClientResponse)
 def create_new_client(db: DbSession, client: ClientCreate, api_key: str = Depends(get_api_key)):
-    return create_client(db, client.model_dump())
+    db_client = create_client(db, client.model_dump())
+    return db_client.to_response()
 
 
 @app.get("/clients/", response_model=list[ClientResponse])
@@ -52,8 +53,7 @@ def read_clients(
 @app.get("/clients/{client_id}", response_model=ClientResponse)
 def read_client(db: DbSession, client_id: int, api_key: str = Depends(get_api_key)):
     db_client = get_client(db, client_id)
-    check_client_trouve(db_client)
-    return db_client
+    return check_client_trouve(db_client).to_response()
 
 
 @app.put("/clients/{client_id}", response_model=ClientResponse)
@@ -61,15 +61,13 @@ def update_existing_client(
     db: DbSession, client_id: int, client: ClientCreate, api_key: str = Depends(get_api_key)
 ):
     db_client = update_client(db, client_id, client.model_dump())
-    check_client_trouve(db_client)
-    return db_client
+    return check_client_trouve(db_client).to_response()
 
 
 @app.delete("/clients/{client_id}", response_model=ClientResponse)
 def delete_existing_client(db: DbSession, client_id: int, api_key: str = Depends(get_api_key)):
     db_client = delete_client(db, client_id)
-    check_client_trouve(db_client)
-    return db_client
+    return check_client_trouve(db_client).to_response()
 
 
 @app.post("/predict/{client_id}", response_model=PredictionResponse)
@@ -93,3 +91,4 @@ async def health_check():
 def check_client_trouve(client):
     if not client:
         raise HTTPException(status_code=404, detail="Client non trouvé")
+    return client

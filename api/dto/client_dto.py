@@ -45,3 +45,6 @@ class ClientCreate(ClientBase):
 
 class ClientResponse(ClientBase):
     id: int
+
+    class Config:
+        from_attributes = True

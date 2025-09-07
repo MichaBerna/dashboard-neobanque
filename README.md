@@ -126,8 +126,10 @@ Le Dashboard est déployé sur [Streamlit](https://streamlit.io/).
 - Pandas : Manipulation et analyse de données 
 - Pydantic : Validation et typage (POO)
 - Sqlalchemy : Toolkit base de donnée/ORM
+- Cryptography : Chiffrement BDD
 
-L'API est déployée sur [Render](https://render.com/).
+L'API est déployée sur [Render](https://render.com/).  
+Une partie des données stockées en base est chiffrée.
 
 ### Modèle IA (entraînement)
 
