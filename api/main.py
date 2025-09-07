@@ -39,8 +39,13 @@ model, seuil, preprocessor = load_model()
 
 @app.post("/clients/", response_model=ClientResponse)
 def create_new_client(db: DbSession, client: ClientCreate, api_key: str = Depends(get_api_key)):
-    db_client = create_client(db, client.model_dump())
-    return db_client.to_response()
+    try:
+        db_client = create_client(db, client.model_dump())
+        return db_client.to_response()
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Erreur serveur") from e
 
 
 @app.get("/clients/", response_model=list[ClientResponse])
@@ -60,8 +65,13 @@ def read_client(db: DbSession, client_id: int, api_key: str = Depends(get_api_ke
 def update_existing_client(
     db: DbSession, client_id: int, client: ClientCreate, api_key: str = Depends(get_api_key)
 ):
-    db_client = update_client(db, client_id, client.model_dump())
-    return check_client_trouve(db_client).to_response()
+    try:
+        db_client = update_client(db, client_id, client.model_dump())
+        return check_client_trouve(db_client).to_response()
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Erreur serveur") from e
 
 
 @app.delete("/clients/{client_id}", response_model=ClientResponse)

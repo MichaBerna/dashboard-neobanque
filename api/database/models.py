@@ -1,3 +1,4 @@
+import re
 from datetime import date
 from typing import Any
 
@@ -57,7 +58,9 @@ class Client(Base):
 
     @nom.setter
     def nom(self, value: str):
-        self.nom_encrypted = encrypt(value)
+        if not value or len(value.strip()) == 0:
+            raise ValueError("Le nom ne peut pas être vide")
+        self.nom_encrypted = encrypt(value.strip())
 
     @property
     def prenom(self) -> str:
@@ -65,7 +68,9 @@ class Client(Base):
 
     @prenom.setter
     def prenom(self, value: str):
-        self.prenom_encrypted = encrypt(value)
+        if not value or len(value.strip()) == 0:
+            raise ValueError("Le prénom ne peut pas être vide")
+        self.prenom_encrypted = encrypt(value.strip())
 
     @property
     def date_naissance(self) -> date:
@@ -73,6 +78,8 @@ class Client(Base):
 
     @date_naissance.setter
     def date_naissance(self, value: date):
+        if value and value > date.today():
+            raise ValueError("La date de naissance ne peut pas être dans le futur")
         self.date_naissance_encrypted = encrypt(value.isoformat())
 
     @property
@@ -81,7 +88,9 @@ class Client(Base):
 
     @adresse.setter
     def adresse(self, value: str):
-        self.adresse_encrypted = encrypt(value)
+        if not value or len(value.strip()) == 0:
+            raise ValueError("L'adresse ne peut pas être vide")
+        self.adresse_encrypted = encrypt(value.strip())
 
     @property
     def telephone(self) -> str:
@@ -89,7 +98,11 @@ class Client(Base):
 
     @telephone.setter
     def telephone(self, value: str):
-        self.telephone_encrypted = encrypt(value)
+        if not value or len(value.strip()) == 0:
+            raise ValueError("Le numéro de téléphone ne peut pas être vide")
+        if not re.match(r"^(\+?\d{1,3}[- ]?)?\d{10}$", value):
+            raise ValueError("Numéro de téléphone invalide")
+        self.telephone_encrypted = encrypt(value.strip())
 
     @property
     def email(self) -> str:
@@ -97,7 +110,11 @@ class Client(Base):
 
     @email.setter
     def email(self, value: str):
-        self.email_encrypted = encrypt(value)
+        if not value or len(value.strip()) == 0:
+            raise ValueError("L'adresse email ne peut pas être vide")
+        if not re.match(r"^[^\s@]+@[^\s@]+\.[^\s@]+$", value):
+            raise ValueError("Adresse email invalide")
+        self.email_encrypted = encrypt(value.strip())
 
     @property
     def age(self) -> int:
