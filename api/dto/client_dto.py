@@ -45,6 +45,7 @@ class ClientCreate(ClientBase):
 
 class ClientResponse(ClientBase):
     id: int
+    age: int
 
     class Config:
         from_attributes = True

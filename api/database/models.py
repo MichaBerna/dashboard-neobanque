@@ -99,12 +99,17 @@ class Client(Base):
     def email(self, value: str):
         self.email_encrypted = encrypt(value)
 
+    @property
+    def age(self) -> int:
+        return date.today().year - self.date_naissance.year
+
     def to_response(self) -> dict[str, Any]:
         return {
             "id": self.id,
             "nom": self.nom,
             "prenom": self.prenom,
             "date_naissance": self.date_naissance.isoformat(),
+            "age": self.age,
             "adresse": self.adresse,
             "telephone": self.telephone,
             "email": self.email,
