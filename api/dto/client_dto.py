@@ -1,7 +1,6 @@
-# schemas.py
 from datetime import date
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class ClientBase(BaseModel):
@@ -47,5 +46,4 @@ class ClientResponse(ClientBase):
     id: int
     age: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
