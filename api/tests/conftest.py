@@ -1,9 +1,12 @@
 from datetime import date
+from unittest.mock import patch
 
 import pytest
+from fastapi.testclient import TestClient
 
 from api.database.models import Client
 from api.dto.client_dto import ClientCreate, ClientResponse
+from api.main import app
 
 
 @pytest.fixture
@@ -161,3 +164,15 @@ def client_response_fixture():
         DAYS_LAST_PHONE_CHANGE=-100,
         FLAG_DOCUMENT_3=False,
     )
+
+
+@pytest.fixture
+def api():
+    with TestClient(app) as test_client:
+        yield test_client
+
+
+@pytest.fixture
+def mock_env_valid_keys():
+    with patch.dict("os.environ", {"VALID_API_KEYS": "valid_key1,valid_key2"}):
+        yield
