@@ -102,6 +102,22 @@ def test_update_existing_client_success(mock_update, api, client_create_fixture,
     assert response.json()["nom"] == "Updated"
 
 
+@patch("api.main.update_client")
+def test_update_existing_client_validation_error(mock_update, api, invalid_client_create_fixture):
+    # Configuration du mock pour lever une ValueError (validation échouée)
+    mock_update.side_effect = ValueError("Adresse email invalide")
+
+    # Envoi des données invalides (email incorrect)
+    response = api.put(
+        "/clients/1",
+        json=invalid_client_create_fixture.model_dump(),
+        headers={"X-API-Key": "valid_key"},
+    )
+
+    assert response.status_code == 400
+    assert "Adresse email invalide" in response.json()["detail"]
+
+
 # Tests pour DELETE /clients/{client_id}
 @patch("api.main.delete_client")
 def test_delete_existing_client_success(mock_delete, api, client_fixture):
