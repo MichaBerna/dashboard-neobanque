@@ -1,8 +1,9 @@
 from datetime import date
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session
 
 from api.database.models import Client
 from api.dto.client_dto import ClientCreate, ClientResponse
@@ -176,3 +177,24 @@ def api():
 def mock_env_valid_keys():
     with patch.dict("os.environ", {"VALID_API_KEYS": "valid_key1,valid_key2"}):
         yield
+
+
+@pytest.fixture
+def mock_db_session():
+    mock_session = MagicMock(spec=Session)
+
+    mock_query = MagicMock()
+    mock_session.query.return_value = mock_query
+
+    mock_query.filter.return_value = mock_query
+    mock_query.first.return_value = None
+    mock_query.offset.return_value = mock_query
+    mock_query.limit.return_value = mock_query
+    mock_query.all.return_value = []
+
+    mock_session.add.return_value = None
+    mock_session.commit.return_value = None
+    mock_session.refresh.return_value = None
+    mock_session.delete.return_value = None
+
+    return mock_session
