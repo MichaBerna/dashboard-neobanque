@@ -149,5 +149,6 @@ Une partie des données stockées en base est chiffrée.
 - Commitizen : Standardise les messages de commit ([Conventional Commits](https://www.conventionalcommits.org/fr/v1.0.0/))
 - Pytest : Framework de test Python
 - Pytest-cov : Production de rapports de couverture de code
+- Pytest-mock : Pour pouvoir utiliser des mocks lors des tests
 - Httpx : Nécessaire pour tests d'endpoints (API)
 - Python-dotenv : Variables d'environnement

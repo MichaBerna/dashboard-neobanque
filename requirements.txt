@@ -3,5 +3,6 @@ pre-commit
 commitizen
 pytest
 pytest-cov
+pytest-mock
 httpx
 python-dotenv

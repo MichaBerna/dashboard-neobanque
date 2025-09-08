@@ -1,12 +1,11 @@
 from datetime import date
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, field_validator
 
 
 class ClientBase(BaseModel):
     nom: str
     prenom: str
-    date_naissance: date
     adresse: str
     telephone: str
     email: str
@@ -39,11 +38,20 @@ class ClientBase(BaseModel):
 
 
 class ClientCreate(ClientBase):
-    pass
+    date_naissance: str
+
+    @field_validator("date_naissance")
+    def validate_date_naissance(cls, v):
+        try:
+            date.fromisoformat(v)
+        except ValueError as e:
+            raise ValueError("Format de date invalide. Utilisez YYYY-MM-DD.") from e
+        return v
 
 
 class ClientResponse(ClientBase):
     id: int
     age: int
+    date_naissance: str
 
     model_config = ConfigDict(from_attributes=True)

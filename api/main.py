@@ -45,14 +45,15 @@ def create_new_client(db: DbSession, client: ClientCreate, api_key: str = Depend
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e)) from e
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Erreur serveur") from e
+        raise HTTPException(status_code=500, detail="Erreur serveur : " + str(e)) from e
 
 
 @app.get("/clients/", response_model=list[ClientResponse])
 def read_clients(
     db: DbSession, skip: int = 0, limit: int = 100, api_key: str = Depends(get_api_key)
 ):
-    return get_clients(db, skip, limit)
+    clients = get_clients(db, skip, limit)
+    return [client.to_response() for client in clients]
 
 
 @app.get("/clients/{client_id}", response_model=ClientResponse)
@@ -71,13 +72,12 @@ def update_existing_client(
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e)) from e
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Erreur serveur") from e
+        raise HTTPException(status_code=500, detail="Erreur serveur : " + str(e)) from e
 
 
-@app.delete("/clients/{client_id}", response_model=ClientResponse)
+@app.delete("/clients/{client_id}")
 def delete_existing_client(db: DbSession, client_id: int, api_key: str = Depends(get_api_key)):
-    db_client = delete_client(db, client_id)
-    return check_client_trouve(db_client).to_response()
+    delete_client(db, client_id)
 
 
 @app.post("/predict/{client_id}", response_model=PredictionResponse)
@@ -87,8 +87,8 @@ async def predict(db: DbSession, client_id: int, api_key: str = Depends(get_api_
     client_model = client_to_client_model(client)
     input_data_processed = preprocessor.transform(client_model)
 
-    probabilite = model.predict_proba(input_data_processed)[0, 1]
-    prediction = (probabilite >= seuil).astype(int)
+    probabilite = model.predict_proba(input_data_processed)[0][1]
+    prediction = probabilite >= seuil
 
     return PredictionResponse(prediction=prediction, probabilite=probabilite, seuil=seuil)
 
