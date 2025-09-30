@@ -1,8 +1,9 @@
 import streamlit as st
 import yaml
+from config import set_page_config
 from forms import render_prediction_form
 from streamlit_authenticator import Authenticate
-from utils.translations import load_translations
+set_page_config()
 
 # Charger la configuration d'authentification
 with open("auth/config_auth.yaml") as f:
