@@ -2,29 +2,28 @@ import streamlit as st
 import yaml
 from config import set_page_config
 from forms import render_prediction_form
+from sidebar import render_sidebar
 from streamlit_authenticator import Authenticate
+
 set_page_config()
 
 # Charger la configuration d'authentification
 with open("auth/config_auth.yaml") as f:
     config = yaml.load(f, Loader=yaml.SafeLoader)
 
-# Initialiser l'authentificateur
+# Formulaire de login
 authenticator = Authenticate(
     config["credentials"],
     config["cookie"]["name"],
     config["cookie"]["key"],
     config["cookie"]["expiry_days"],
 )
-
-# Sélection de la langue (fr par défaut)
-lang = st.sidebar.selectbox("Language", ["Français", "English"])
-lang_code = "en" if lang == "English" else "fr"
-translations = load_translations(lang_code)
-
-# Formulaire de login
 authenticator.login()
 
+# Sidebar & translations
+translations = render_sidebar(authenticator, st.session_state.get("authentication_status"))
+
+# Pages & navigation
 if st.session_state.get("authentication_status"):
     authenticator.logout(location="sidebar")
     st.title(translations["title"])
