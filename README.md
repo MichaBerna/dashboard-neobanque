@@ -114,7 +114,10 @@ Ce projet est construit avec Python 3.13.
 
 - Streamlit : Framework permettant de créer un dashboard interactif sur une application web
 - Streamlit-authenticator : Module Streamlit d'authentification
+- Streamlit-aggrid : Module Streamlit d'intégration d'[AG Grid](https://www.ag-grid.com/)
+- Streamlit-modal : Modale pour Streamlit
 - Requests : Pour créer rapidement des requêtes HTTP
+- Pandas : Manipulation et analyse de données 
 
 Le Dashboard est déployé sur [Streamlit](https://streamlit.io/).
 
