@@ -80,13 +80,13 @@ cd api
 pip install -r requirements.txt
 
 # Lancement du serveur pour l'API
-uvicorn main:app --reload
+uvicorn main:app --reload --port 8001   
 ```
 
-L'API sera à retrouver sur http://localhost:8000/
+L'API sera à retrouver sur http://localhost:8001/
 De la documentation est également disponible :
-- OpenAPI/Swagger : http://localhost:8000/docs
-- ReDoc : http://localhost:8000/redoc
+- OpenAPI/Swagger : http://localhost:8001/docs
+- ReDoc : http://localhost:8001/redoc
 
 ### Modèle IA
 
