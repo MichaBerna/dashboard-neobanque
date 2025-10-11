@@ -76,5 +76,15 @@
   "cancel": "Annuler",
   "confirm_delete": "Confirmer la suppression",
   "prediction_data": "Données pour la demande de crédit",
-  "calculate_credit_score": "Calculer score de crédit"
+  "calculate_credit_score": "Calculer score de crédit",
+
+  "rgpd_conseiller_title": "Consentement RGPD",
+  "rgpd_conseiller_intro": "En tant que conseiller bancaire, vous devez accepter les conditions d'utilisation des données clients conformément au RGPD.",
+  "rgpd_conseiller_details_label": "Détails des engagements",
+  "rgpd_conseiller_detail_1": "- Respecter la confidentialité des données clients.",
+  "rgpd_conseiller_detail_2": "- N'utiliser les données qu'à des fins professionnelles autorisées.",
+  "rgpd_conseiller_detail_3": "- Ne pas partager les données en dehors du cadre légal.",
+  "rgpd_conseiller_checkbox": "J'accepte les conditions d'utilisation des données clients.",
+  "rgpd_conseiller_success": "Conditions d'utilisation des données acceptées.",
+  "rgpd_conseiller_warning": "Vous devez accepter pour continuer.",
 }

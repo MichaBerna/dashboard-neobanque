@@ -6,6 +6,7 @@ from forms.client_form import render_client_form
 from forms.client_list import render_client_list
 from sidebar import render_sidebar
 from streamlit_authenticator import Authenticate
+from utils.rgpd import show_rgpd_conseiller
 
 set_page_config()
 
@@ -25,8 +26,12 @@ authenticator.login()
 # Sidebar & translations
 translations = render_sidebar(authenticator, st.session_state.get("authentication_status"))
 
-# Pages & navigation
 if st.session_state.get("authentication_status"):
+    # Consentement RGPD pour les conseillers
+    if not st.session_state.get("rgpd_conseiller"):
+        show_rgpd_conseiller(translations)
+
+    # Pages & navigation
     if "page" not in st.session_state:
         st.session_state["page"] = "client_list"
 
