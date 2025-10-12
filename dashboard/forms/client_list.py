@@ -5,7 +5,7 @@ from utils.api_client import get_clients
 
 
 def render_client_list(translations):
-    st.subheader(translations["client_list_title"])
+    st.subheader(translations["client_list_title"], divider="blue")
 
     # Alignement horizontal des boutons "Rafraîchir" et "Créer un client"
     col1, col2 = st.columns(2)
