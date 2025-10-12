@@ -87,9 +87,11 @@ def delete_client(client_id):
         return False
 
 
-def call_predict_api(data):
+def call_predict_api(client_id):
     try:
-        response = requests.post(f"{API_URL}/predict", json=data, headers=get_headers(), timeout=10)
+        response = requests.get(
+            f"{API_URL}/clients/{client_id}/predict", headers=get_headers(), timeout=20
+        )
         if response.status_code == 200:
             return response.json()
         else:

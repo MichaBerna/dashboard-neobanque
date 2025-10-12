@@ -1,3 +1,4 @@
+import pandas as pd
 from pydantic import BaseModel
 
 from api.database.models import Client
@@ -36,6 +37,9 @@ def client_to_client_model(client: Client) -> ClientModel:
     # Récupère les attributs de l'instance SQLAlchemy
     client_data = {}
     for column in client.__table__.columns:
+        # Vérifie si le champ existe dans le modèle
+        if ClientModel.model_fields.get(column.name) is None:
+            continue
         value = getattr(client, column.name)
         # Convertit les valeurs en types natifs (str, float, int)
         if isinstance(value, str):
@@ -46,3 +50,11 @@ def client_to_client_model(client: Client) -> ClientModel:
             client_data[column.name] = value
 
     return ClientModel(**client_data)
+
+
+def client_to_model_input(client: Client) -> pd.DataFrame:
+    model = client_to_client_model(client)
+    model_dict = model.model_dump()
+    df = pd.DataFrame([model_dict])
+    field_names = list(ClientModel.__annotations__.keys())
+    return df[field_names]

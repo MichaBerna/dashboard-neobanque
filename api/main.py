@@ -11,7 +11,7 @@ from database.client_repository import (
 from database.database_init import db_session, init_db
 from dto.prediction_response import PredictionResponse
 from fastapi import Depends, FastAPI, HTTPException
-from model.client_model import client_to_client_model
+from model.client_model import client_to_model_input
 from model.model_loader import load_model
 from sqlalchemy.orm import Session
 
@@ -80,17 +80,21 @@ def delete_existing_client(db: DbSession, client_id: int, api_key: str = Depends
     delete_client(db, client_id)
 
 
-@app.post("/predict/{client_id}", response_model=PredictionResponse)
+@app.get("/clients/{client_id}/predict", response_model=PredictionResponse)
 async def predict(db: DbSession, client_id: int, api_key: str = Depends(get_api_key)):
     client = db.query(Client).filter(Client.id == client_id).first()
     check_client_trouve(client)
-    client_model = client_to_client_model(client)
-    input_data_processed = preprocessor.transform(client_model)
+    model_input = client_to_model_input(client)
 
-    probabilite = model.predict_proba(input_data_processed)[0][1]
-    prediction = probabilite >= seuil
-
-    return PredictionResponse(prediction=prediction, probabilite=probabilite, seuil=seuil)
+    try:
+        input_data_processed = preprocessor.transform(model_input)
+        probabilite = model.predict_proba(input_data_processed)[0][1]
+        prediction = probabilite >= seuil
+        return PredictionResponse(prediction=prediction, probabilite=probabilite, seuil=seuil)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Erreur serveur : " + str(e)) from e
 
 
 @app.get("/health")
