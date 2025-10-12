@@ -144,6 +144,7 @@ Une partie des données stockées en base est chiffrée.
 - Xgboost : Modèles de boosting extrême
 - Imblearn : Traitement des données, SMOTE pour le rééquilibrage des classes
 - Joblib : Sauvegarde/chargement de modèles 
+- CodeCarbon : Mesure de l'impact environnemental de l'entraînement du modèle
 
 ### Outillage, tests & qualité de code
 
