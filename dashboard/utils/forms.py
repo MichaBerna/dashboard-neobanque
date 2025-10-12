@@ -32,3 +32,9 @@ def render_input_field(
             return st.date_input(translations[key], value=date_value, key=key)
         elif input_type == "number":
             return st.number_input(translations[key], value=int(value) if value else 0, key=key)
+
+
+def render_data_field(col, translations, key, client_data, suffix=""):
+    value = client_data.get(key)
+    with col:
+        st.markdown(f"**{translations[key]}** : {value} {suffix}")
