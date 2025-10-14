@@ -1,6 +1,7 @@
 import streamlit as st
 from forms.modal_delete_client import render_delete_modal
-from utils.api_client import get_client
+from forms.modal_prediction_score import render_prediction_modal
+from utils.api_client import call_predict_api, get_client
 from utils.forms import render_data_field
 
 
@@ -98,13 +99,16 @@ def render_client_details(translations):
 
     with middle:
         if st.button(
-            translations["calculate_credit_score"],
+            translations["calculate_prediction"],
             key="calculate_score_button",
             icon=":material/calculate:",
             width="stretch",
         ):
-            st.session_state["page"] = "credit_score"
-            st.rerun()
+            with st.spinner(translations["calculating_score"]):
+                score_data = call_predict_api(client["id"])
+                st.session_state["score_data"] = score_data
+                st.session_state["show_prediction_modal"] = True
+                st.rerun()
 
     with right:
         if st.button(
@@ -116,3 +120,7 @@ def render_client_details(translations):
     # Modale de confirmation de suppression
     if st.session_state.get("show_delete_modal", False):
         render_delete_modal(translations, client)
+
+    # Modale de prédiction
+    if st.session_state.get("show_prediction_modal", False):
+        render_prediction_modal(translations, st.session_state["score_data"])
