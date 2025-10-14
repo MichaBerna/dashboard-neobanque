@@ -115,6 +115,7 @@ def render_client_details(translations):
             translations["edit"], key="edit_button", icon=":material/edit:", width="stretch"
         ):
             st.session_state["page"] = "edit_client"
+            st.session_state["edit_client_id"] = client["id"]
             st.rerun()
 
     # Modale de confirmation de suppression
