@@ -5,9 +5,8 @@ from utils.mappings import transform_data_for_backend
 
 
 def render_client_form(translations, is_update=False):
-    client_id = st.session_state.get("edit_client_id") if is_update else None
-    client_data = get_client(client_id) if is_update else {}
-    client_data = client_data if client_data else {}
+    client_id = get_client_id(is_update)
+    client_data = construct_data(is_update, client_id)
 
     st.subheader(
         translations["edit_client"] if is_update else translations["create_client"], divider="blue"
@@ -288,3 +287,13 @@ def render_client_form(translations, is_update=False):
                         st.session_state["page"] = "client_list"
                         st.session_state["refresh_requested"] = True
                         st.rerun()
+
+
+def get_client_id(is_update):
+    return st.session_state.get("edit_client_id") if is_update else None
+
+
+def construct_data(is_update, client_id):
+    client_data = get_client(client_id) if is_update else {}
+    client_data = client_data if client_data else {}
+    return client_data
