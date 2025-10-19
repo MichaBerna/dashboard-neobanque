@@ -1,5 +1,3 @@
-from datetime import date
-
 from pydantic import BaseModel, ConfigDict
 
 
@@ -38,7 +36,7 @@ class ClientBase(BaseModel):
 
 
 class ClientCreate(ClientBase):
-    date_naissance: date
+    date_naissance: str
 
 
 class ClientResponse(ClientBase):

@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from api.database.models import Client
 from api.dto.client_dto import ClientCreate, ClientResponse
-from api.main import app
+from api.main_api import app
 
 
 @pytest.fixture

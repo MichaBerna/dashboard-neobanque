@@ -1,11 +1,9 @@
-from typing import Optional
-
 from sqlalchemy.orm import Session
 
 from api.database.models import Client
 
 
-def get_client(db: Session, client_id: int) -> Optional[Client]:
+def get_client(db: Session, client_id: int) -> Client | None:
     return db.query(Client).filter(Client.id == client_id).first()
 
 
@@ -21,7 +19,7 @@ def create_client(db: Session, client_data: dict) -> Client:
     return db_client
 
 
-def update_client(db: Session, client_id: int, client_data: dict) -> Optional[Client]:
+def update_client(db: Session, client_id: int, client_data: dict) -> Client | None:
     db_client = get_client(db, client_id)
     if db_client:
         for key, value in client_data.items():
@@ -31,7 +29,7 @@ def update_client(db: Session, client_id: int, client_data: dict) -> Optional[Cl
     return db_client
 
 
-def delete_client(db: Session, client_id: int) -> Optional[Client]:
+def delete_client(db: Session, client_id: int) -> Client | None:
     db_client = get_client(db, client_id)
     if db_client:
         db.delete(db_client)
