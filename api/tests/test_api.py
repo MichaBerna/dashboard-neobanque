@@ -104,10 +104,8 @@ def test_update_existing_client_success(mock_update, api, client_create_fixture,
 
 @patch("api.main_api.update_client")
 def test_update_existing_client_validation_error(mock_update, api, invalid_client_create_fixture):
-    # Configuration du mock pour lever une ValueError (validation échouée)
     mock_update.side_effect = ValueError("Adresse email invalide")
 
-    # Envoi des données invalides (email incorrect)
     response = api.put(
         "/clients/1",
         json=invalid_client_create_fixture.model_dump(),
@@ -126,7 +124,7 @@ def test_delete_existing_client_success(mock_delete, api, client_fixture):
     assert response.status_code == 200
 
 
-# Tests pour POST /predict/{client_id}
+# Tests pour POST /clients/{client_id}/predict
 @patch("api.main_api.db_session")
 @patch("api.main_api.model")
 @patch("api.main_api.preprocessor")
@@ -134,7 +132,7 @@ def test_predict_success(mock_preprocessor, mock_model, mock_db, client_fixture,
     mock_db.return_value.query.return_value.filter.return_value.first.return_value = client_fixture
     mock_preprocessor.transform.return_value = [[1, 2, 3]]
     mock_model.predict_proba.return_value = [[0.2, 0.8]]
-    response = api.post("/predict/1", headers={"X-API-Key": "valid_key"})
+    response = api.get("/clients/1/predict", headers={"X-API-Key": "valid_key"})
     assert response.status_code == 200
     assert response.json()["prediction"] == 1
     assert response.json()["probabilite"] < 1 and response.json()["probabilite"] > 0
@@ -144,7 +142,7 @@ def test_predict_success(mock_preprocessor, mock_model, mock_db, client_fixture,
 @patch("api.main_api.db_session")
 def test_predict_client_not_found(mock_db, api):
     mock_db.return_value.query.return_value.filter.return_value.first.return_value = None
-    response = api.post("/predict/999", headers={"X-API-Key": "valid_key"})
+    response = api.get("/clients/999/predict", headers={"X-API-Key": "valid_key"})
     assert response.status_code == 404
 
 
