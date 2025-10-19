@@ -65,7 +65,7 @@ cd dashboard
 pip install -r requirements.txt
 
 # Lancement du serveur pour l'API
-streamlit run main.py
+streamlit run main_dashboard.py
 ```
 
 Le dashboard sera à retrouver sur http://localhost:8501/
@@ -80,7 +80,7 @@ cd api
 pip install -r requirements.txt
 
 # Lancement du serveur pour l'API
-uvicorn main:app --reload --port 8001   
+uvicorn main_api:app --reload --port 8001   
 ```
 
 L'API sera à retrouver sur http://localhost:8001/

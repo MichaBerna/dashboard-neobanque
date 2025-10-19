@@ -4,7 +4,7 @@ import pytest
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
-from api.main import app, check_client_trouve
+from api.main_api import app, check_client_trouve
 
 
 # Fixture & mocks
@@ -32,7 +32,7 @@ def test_check_client_trouve_not_found():
 
 
 # Tests pour POST /clients
-@patch("api.main.create_client")
+@patch("api.main_api.create_client")
 def test_create_new_client_success(mock_create, client_fixture, client_create_fixture, api):
     mock_create.return_value = client_fixture
     response = api.post(
@@ -42,7 +42,7 @@ def test_create_new_client_success(mock_create, client_fixture, client_create_fi
     assert response.json() == client_fixture.to_response().model_dump()
 
 
-@patch("api.main.create_client")
+@patch("api.main_api.create_client")
 def test_create_new_client_validation_error(mock_create, api, invalid_client_create_fixture):
     mock_create.side_effect = ValueError("Adresse email invalide")
     response = api.post(
@@ -55,7 +55,7 @@ def test_create_new_client_validation_error(mock_create, api, invalid_client_cre
 
 
 # Tests pour GET /clients
-@patch("api.main.get_clients")
+@patch("api.main_api.get_clients")
 def test_read_clients_success(mock_get, api, client_fixture):
     mock_get.return_value = [client_fixture]
     response = api.get("/clients/", headers={"X-API-Key": "valid_key"})
@@ -65,7 +65,7 @@ def test_read_clients_success(mock_get, api, client_fixture):
 
 
 # Tests pour GET /clients/{client_id}
-@patch("api.main.get_client")
+@patch("api.main_api.get_client")
 def test_read_client_success(mock_get, api, client_fixture):
     mock_get.return_value = client_fixture
     response = api.get("/clients/1", headers={"X-API-Key": "valid_key"})
@@ -73,7 +73,7 @@ def test_read_client_success(mock_get, api, client_fixture):
     assert response.json() == client_fixture.to_response().model_dump()
 
 
-@patch("api.main.get_client")
+@patch("api.main_api.get_client")
 def test_read_client_not_found(mock_get, api):
     mock_get.return_value = None
     response = api.get("/clients/999", headers={"X-API-Key": "valid_key"})
@@ -81,7 +81,7 @@ def test_read_client_not_found(mock_get, api):
 
 
 # Tests pour PUT /clients/{client_id}
-@patch("api.main.update_client")
+@patch("api.main_api.update_client")
 def test_update_existing_client_success(mock_update, api, client_create_fixture, client_fixture):
     updated_data = client_create_fixture.model_dump()
     updated_data["nom"] = "Updated"
@@ -102,7 +102,7 @@ def test_update_existing_client_success(mock_update, api, client_create_fixture,
     assert response.json()["nom"] == "Updated"
 
 
-@patch("api.main.update_client")
+@patch("api.main_api.update_client")
 def test_update_existing_client_validation_error(mock_update, api, invalid_client_create_fixture):
     # Configuration du mock pour lever une ValueError (validation échouée)
     mock_update.side_effect = ValueError("Adresse email invalide")
@@ -119,7 +119,7 @@ def test_update_existing_client_validation_error(mock_update, api, invalid_clien
 
 
 # Tests pour DELETE /clients/{client_id}
-@patch("api.main.delete_client")
+@patch("api.main_api.delete_client")
 def test_delete_existing_client_success(mock_delete, api, client_fixture):
     mock_delete.return_value = client_fixture
     response = api.delete("/clients/1", headers={"X-API-Key": "valid_key"})
@@ -127,9 +127,9 @@ def test_delete_existing_client_success(mock_delete, api, client_fixture):
 
 
 # Tests pour POST /predict/{client_id}
-@patch("api.main.db_session")
-@patch("api.main.model")
-@patch("api.main.preprocessor")
+@patch("api.main_api.db_session")
+@patch("api.main_api.model")
+@patch("api.main_api.preprocessor")
 def test_predict_success(mock_preprocessor, mock_model, mock_db, client_fixture, api):
     mock_db.return_value.query.return_value.filter.return_value.first.return_value = client_fixture
     mock_preprocessor.transform.return_value = [[1, 2, 3]]
@@ -141,7 +141,7 @@ def test_predict_success(mock_preprocessor, mock_model, mock_db, client_fixture,
     assert response.json()["seuil"] < 1 and response.json()["seuil"] > 0
 
 
-@patch("api.main.db_session")
+@patch("api.main_api.db_session")
 def test_predict_client_not_found(mock_db, api):
     mock_db.return_value.query.return_value.filter.return_value.first.return_value = None
     response = api.post("/predict/999", headers={"X-API-Key": "valid_key"})

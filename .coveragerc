@@ -1,0 +1,3 @@
+[run]
+source = dashboard, api
+omit = */tests/*, */__init__.py
