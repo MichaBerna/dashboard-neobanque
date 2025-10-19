@@ -43,9 +43,9 @@ def create_new_client(db: DbSession, client: ClientCreate, api_key: str = Depend
         db_client = create_client(db, client.model_dump())
         return db_client.to_response()
     except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e)) from e
+        raise_value_error(e)
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Erreur serveur : " + str(e)) from e
+        raise_unknown_exception(e)
 
 
 @app.get("/clients/", response_model=list[ClientResponse])
@@ -70,9 +70,9 @@ def update_existing_client(
         db_client = update_client(db, client_id, client.model_dump())
         return check_client_trouve(db_client).to_response()
     except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e)) from e
+        raise_value_error(e)
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Erreur serveur : " + str(e)) from e
+        raise_unknown_exception(e)
 
 
 @app.delete("/clients/{client_id}")
@@ -92,9 +92,9 @@ async def predict(db: DbSession, client_id: int, api_key: str = Depends(get_api_
         prediction = probabilite >= seuil
         return PredictionResponse(prediction=prediction, probabilite=probabilite, seuil=seuil)
     except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e)) from e
+        raise_value_error(e)
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Erreur serveur : " + str(e)) from e
+        raise_unknown_exception(e)
 
 
 @app.get("/health")
@@ -106,3 +106,11 @@ def check_client_trouve(client):
     if not client:
         raise HTTPException(status_code=404, detail="Client non trouvé")
     return client
+
+
+def raise_unknown_exception(e):
+    raise HTTPException(status_code=500, detail="Erreur serveur : " + str(e)) from e
+
+
+def raise_value_error(e):
+    raise HTTPException(status_code=400, detail=str(e)) from e

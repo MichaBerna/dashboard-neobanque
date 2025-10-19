@@ -4,7 +4,7 @@ import pytest
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
-from api.main_api import app, check_client_trouve
+from api.main_api import app, check_client_trouve, raise_unknown_exception, raise_value_error
 
 
 # Fixture & mocks
@@ -150,3 +150,17 @@ def test_health_check(api):
     response = api.get("/health")
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
+
+
+def test_raise_unknown_exception():
+    with pytest.raises(HTTPException) as excinfo:
+        raise_unknown_exception(Exception("Test error"))
+    assert excinfo.value.status_code == 500
+    assert "Erreur serveur : Test error" in str(excinfo.value.detail)
+
+
+def test_raise_value_error():
+    with pytest.raises(HTTPException) as excinfo:
+        raise_value_error(ValueError("Test value error"))
+    assert excinfo.value.status_code == 400
+    assert "Test value error" in str(excinfo.value.detail)
