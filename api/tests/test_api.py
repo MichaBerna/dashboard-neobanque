@@ -54,6 +54,18 @@ def test_create_new_client_validation_error(mock_create, api, invalid_client_cre
     assert "Adresse email invalide" in response.json()["detail"]
 
 
+@patch("api.main_api.create_client")
+def test_create_new_client_exception(mock_create, api, invalid_client_create_fixture):
+    mock_create.side_effect = Exception("Erreur lors de la création du client")
+    response = api.post(
+        "/clients/",
+        json=invalid_client_create_fixture.model_dump(),
+        headers={"X-API-Key": "valid_key"},
+    )
+    assert response.status_code == 500
+    assert "Erreur serveur : Erreur lors de la création du client" in response.json()["detail"]
+
+
 # Tests pour GET /clients
 @patch("api.main_api.get_clients")
 def test_read_clients_success(mock_get, api, client_fixture):
@@ -102,6 +114,20 @@ def test_update_existing_client_success(mock_update, api, client_create_fixture,
     assert response.json()["nom"] == "Updated"
 
 
+@patch("api.main_api.create_client")
+def test_update_existing_client_validation_exception(
+    mock_create, api, invalid_client_create_fixture
+):
+    mock_create.side_effect = Exception("Erreur lors de la mise à jour du client")
+    response = api.post(
+        "/clients/",
+        json=invalid_client_create_fixture.model_dump(),
+        headers={"X-API-Key": "valid_key"},
+    )
+    assert response.status_code == 500
+    assert "Erreur serveur : Erreur lors de la mise à jour du client" in response.json()["detail"]
+
+
 @patch("api.main_api.update_client")
 def test_update_existing_client_validation_error(mock_update, api, invalid_client_create_fixture):
     mock_update.side_effect = ValueError("Adresse email invalide")
@@ -124,7 +150,7 @@ def test_delete_existing_client_success(mock_delete, api, client_fixture):
     assert response.status_code == 200
 
 
-# Tests pour POST /clients/{client_id}/predict
+# Tests pour GET /clients/{client_id}/predict
 @patch("api.main_api.db_session")
 @patch("api.main_api.model")
 @patch("api.main_api.preprocessor")
@@ -132,11 +158,27 @@ def test_predict_success(mock_preprocessor, mock_model, mock_db, client_fixture,
     mock_db.return_value.query.return_value.filter.return_value.first.return_value = client_fixture
     mock_preprocessor.transform.return_value = [[1, 2, 3]]
     mock_model.predict_proba.return_value = [[0.2, 0.8]]
+
     response = api.get("/clients/1/predict", headers={"X-API-Key": "valid_key"})
+
     assert response.status_code == 200
     assert response.json()["prediction"] == 1
     assert response.json()["probabilite"] < 1 and response.json()["probabilite"] > 0
     assert response.json()["seuil"] < 1 and response.json()["seuil"] > 0
+
+
+@patch("api.main_api.db_session")
+@patch("api.main_api.preprocessor")
+@patch("api.main_api.model")
+def test_predict_exception(mock_model, mock_preprocessor, mock_db, client_fixture, api):
+    mock_db.return_value.query.return_value.filter.return_value.first.return_value = client_fixture
+    mock_preprocessor.transform.return_value = [[1, 2, 3]]
+    mock_model.predict_proba.side_effect = Exception("Erreur lors de la prédiction")
+
+    response = api.get("/clients/1/predict", headers={"X-API-Key": "valid_key"})
+
+    assert response.status_code == 500
+    assert "Erreur serveur : Erreur lors de la prédiction" in response.json()["detail"]
 
 
 @patch("api.main_api.db_session")
