@@ -11,32 +11,32 @@ def mock_env():
             {"API_URL": "http://mock-api-url", "STREAMLIT_API_KEY": "mock_api_key"},
             clear=True,
         ),
-        patch("utils.api_client.load_dotenv"),
+        patch("dashboard.utils.api_client.load_dotenv"),
     ):
         yield
 
 
 @pytest.fixture
 def mock_requests():
-    with patch("utils.api_client.requests") as mock_requests:
+    with patch("dashboard.utils.api_client.requests") as mock_requests:
         yield mock_requests
 
 
 @pytest.fixture
 def mock_st_error():
-    with patch("utils.api_client.st.error") as mock_st_error:
+    with patch("dashboard.utils.api_client.st.error") as mock_st_error:
         yield mock_st_error
 
 
 def test_get_headers_with_api_key(mock_env):
-    from utils.api_client import get_headers
+    from dashboard.utils.api_client import get_headers
 
     assert get_headers() == {"Authorization": "Bearer mock_api_key"}
 
 
 # Tests pour create_client
 def test_create_client_success(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import create_client
+    from dashboard.utils.api_client import create_client
 
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -55,7 +55,7 @@ def test_create_client_success(mock_env, mock_requests, mock_st_error):
 
 
 def test_create_client_failure(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import create_client
+    from dashboard.utils.api_client import create_client
 
     mock_response = MagicMock()
     mock_response.status_code = 400
@@ -68,7 +68,7 @@ def test_create_client_failure(mock_env, mock_requests, mock_st_error):
 
 
 def test_create_client_exception(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import create_client
+    from dashboard.utils.api_client import create_client
 
     mock_requests.post.side_effect = Exception("Timeout error")
 
@@ -79,7 +79,7 @@ def test_create_client_exception(mock_env, mock_requests, mock_st_error):
 
 # Tests pour update_client
 def test_update_client_success(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import update_client
+    from dashboard.utils.api_client import update_client
 
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -98,7 +98,7 @@ def test_update_client_success(mock_env, mock_requests, mock_st_error):
 
 
 def test_update_client_failure(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import update_client
+    from dashboard.utils.api_client import update_client
 
     mock_response = MagicMock()
     mock_response.status_code = 404
@@ -111,7 +111,7 @@ def test_update_client_failure(mock_env, mock_requests, mock_st_error):
 
 
 def test_update_client_exception(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import update_client
+    from dashboard.utils.api_client import update_client
 
     mock_requests.put.side_effect = Exception("Timeout error")
 
@@ -122,7 +122,7 @@ def test_update_client_exception(mock_env, mock_requests, mock_st_error):
 
 # Tests pour delete_client
 def test_delete_client_success(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import delete_client
+    from dashboard.utils.api_client import delete_client
 
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -138,7 +138,7 @@ def test_delete_client_success(mock_env, mock_requests, mock_st_error):
 
 
 def test_delete_client_failure(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import delete_client
+    from dashboard.utils.api_client import delete_client
 
     mock_response = MagicMock()
     mock_response.status_code = 404
@@ -150,7 +150,7 @@ def test_delete_client_failure(mock_env, mock_requests, mock_st_error):
 
 
 def test_delete_client_exception(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import delete_client
+    from dashboard.utils.api_client import delete_client
 
     mock_requests.delete.side_effect = Exception("Timeout error")
 
@@ -160,7 +160,7 @@ def test_delete_client_exception(mock_env, mock_requests, mock_st_error):
 
 # Tests pour get_clients
 def test_get_clients_success(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import get_clients
+    from dashboard.utils.api_client import get_clients
 
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -177,7 +177,7 @@ def test_get_clients_success(mock_env, mock_requests, mock_st_error):
 
 
 def test_get_clients_failure(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import get_clients
+    from dashboard.utils.api_client import get_clients
 
     mock_response = MagicMock()
     mock_response.status_code = 500
@@ -189,7 +189,7 @@ def test_get_clients_failure(mock_env, mock_requests, mock_st_error):
 
 
 def test_get_clients_exception(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import get_clients
+    from dashboard.utils.api_client import get_clients
 
     mock_requests.get.side_effect = Exception("Timeout error")
 
@@ -201,7 +201,7 @@ def test_get_clients_exception(mock_env, mock_requests, mock_st_error):
 
 # Tests pour get_client
 def test_get_client_success(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import get_client
+    from dashboard.utils.api_client import get_client
 
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -218,7 +218,7 @@ def test_get_client_success(mock_env, mock_requests, mock_st_error):
 
 
 def test_get_client_failure(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import get_client
+    from dashboard.utils.api_client import get_client
 
     mock_response = MagicMock()
     mock_response.status_code = 404
@@ -230,7 +230,7 @@ def test_get_client_failure(mock_env, mock_requests, mock_st_error):
 
 
 def test_get_client_exception(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import get_client
+    from dashboard.utils.api_client import get_client
 
     mock_requests.get.side_effect = Exception("Timeout error")
 
@@ -242,7 +242,7 @@ def test_get_client_exception(mock_env, mock_requests, mock_st_error):
 
 # Tests pour call_predict_api
 def test_call_predict_api_success(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import call_predict_api
+    from dashboard.utils.api_client import call_predict_api
 
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -259,7 +259,7 @@ def test_call_predict_api_success(mock_env, mock_requests, mock_st_error):
 
 
 def test_call_predict_api_failure(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import call_predict_api
+    from dashboard.utils.api_client import call_predict_api
 
     mock_response = MagicMock()
     mock_response.status_code = 404
@@ -271,7 +271,7 @@ def test_call_predict_api_failure(mock_env, mock_requests, mock_st_error):
 
 
 def test_call_predict_api_exception(mock_env, mock_requests, mock_st_error):
-    from utils.api_client import call_predict_api
+    from dashboard.utils.api_client import call_predict_api
 
     mock_requests.get.side_effect = Exception("Timeout error")
 
