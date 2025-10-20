@@ -9,16 +9,16 @@ def test_prenom_validation():
     with pytest.raises(ValueError, match="ne peut pas être vide"):
         Client(prenom="")
 
-    client = Client(prenom=" Jean ")
-    assert client.prenom == "Jean"
+    client = Client(prenom=" Micha ")
+    assert client.prenom == "Micha"
 
 
 def test_nom_validation():
     with pytest.raises(ValueError, match="ne peut pas être vide"):
         Client(nom="")
 
-    client = Client(nom=" Dupont ")
-    assert client.nom == "Dupont"
+    client = Client(nom=" Berna ")
+    assert client.nom == "Berna"
 
 
 def test_telephone_validation():
