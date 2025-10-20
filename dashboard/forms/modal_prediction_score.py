@@ -17,7 +17,9 @@ def render_prediction_modal(translations, score_data):
             status_text = translations["credit_approved"]
 
         st.write(translations["probability_score"].format(probabilite=f"{probabilite:.2f}"))
-        st.write(f"{translations['prediction'].format(seuil=seuil)} :{status_color}[{status_text}]")
+        st.write(
+            f"{translations['prediction'].format(seuil=f'{seuil:.2f}')}:{status_color}[{status_text}]"
+        )
 
         if st.button(translations["close_button"]):
             st.session_state["show_prediction_modal"] = False
