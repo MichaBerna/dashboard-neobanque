@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import streamlit as st
 import yaml
 from config import set_page_config
@@ -11,7 +13,10 @@ from utils.rgpd import show_rgpd_conseiller
 set_page_config()
 
 # Charger la configuration d'authentification
-with open("auth/config_auth.yaml") as f:
+config_path = Path(__file__).parent / "auth" / "config_auth.yaml"
+if not config_path.exists():
+    raise FileNotFoundError(f"Le fichier de config n'existe pas : {config_path.absolute()}")
+with open(config_path) as f:
     config = yaml.load(f, Loader=yaml.SafeLoader)
 
 # Formulaire de login
