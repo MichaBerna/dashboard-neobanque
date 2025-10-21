@@ -78,6 +78,8 @@ class Client(Base):
 
     @date_naissance.setter
     def date_naissance(self, value: date):
+        if isinstance(value, str):
+            value = date.fromisoformat(value)
         if value and value > date.today():
             raise ValueError("La date de naissance ne peut pas être dans le futur")
         self.date_naissance_encrypted = encrypt(value.isoformat())

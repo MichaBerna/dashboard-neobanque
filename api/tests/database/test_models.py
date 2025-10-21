@@ -50,6 +50,10 @@ def test_date_naissance_validation():
     with pytest.raises(ValueError, match="ne peut pas être dans le futur"):
         Client(date_naissance=future_date)
 
+    future_date = future_date.isoformat()
+    with pytest.raises(ValueError, match="ne peut pas être dans le futur"):
+        Client(date_naissance=future_date)
+
 
 def test_adresse_validation():
     with pytest.raises(ValueError, match="ne peut pas être vide"):
