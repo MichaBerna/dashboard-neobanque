@@ -118,6 +118,7 @@ Ce projet est construit avec Python 3.13.
 - Streamlit-modal : Modale pour Streamlit
 - Requests : Pour créer rapidement des requêtes HTTP
 - Pandas : Manipulation et analyse de données 
+- Python-dotenv : Variables d'environnement
 
 Le Dashboard est déployé sur [Streamlit](https://streamlit.io/).
 

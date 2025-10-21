@@ -3,3 +3,4 @@ streamlit-authenticator
 streamlit-aggrid
 streamlit-modal
 requests
+python-dotenv
