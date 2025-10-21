@@ -24,7 +24,7 @@ jobs:
           pip install -r modele/entrainement/requirements.txt
 
       - name: Run tests with coverage
-        run: pytest --cov=dashboard/ --cov=api/ --cov-report=xml:coverage.xml --cov-config=.coveragerc
+        run: pytest --cov=dashboard/ --cov=api/ --cov-report=xml:coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@master
